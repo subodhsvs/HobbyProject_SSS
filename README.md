@@ -37,7 +37,7 @@ output data may be different.
 ## Correction Stratergy
 
  |error| M1 | M2 | M3 | M4 |
- |:----|:--:|:--:|:--:|:--:|
+ |:---:|:--:|:--:|:--:|:--:|
  | Y+  | +  | -  | -  | +  |
  | Y-  | -  | +  | +  | -  |
  | P+  | +  | +  |-/x |-/x |
@@ -47,19 +47,19 @@ output data may be different.
      
    
    
- **x** = don't care / no correction
- **+** = positive correction = m\*(error)
- **-** = negative correction = m\*(error)
- **m** = slope of error vs correction line = ERROR_AMPLIFICATION_FACTOR
+ **x** = don't care / no correction  
+ **+** = positive correction = m\*(error)  
+ **-** = negative correction = m\*(error)  
+ **m** = slope of error vs correction line = ERROR_AMPLIFICATION_FACTOR  
  
  
 ### The error amplification factor
  The error obtained from sensor readings is mapped to the final pulse width values by using a straight line function, y=mx.
  Here, 
  
- - **y** = correction in pulsewidth, which is a signed number
- - **m** = ERROR_AMPLIFICATION_FACTOR
- - **x** = error 
+ **y** = correction in pulsewidth, which is a signed number  
+ **m** = ERROR_AMPLIFICATION_FACTOR  
+ **x** = error
  
  
  - *example*: If roll error obtained is 0.0, then correction to be done in roll is **y = m\*0.0 = 0.0**. If roll error obtained is -1.2, then correction to be done in roll is **y = m\*(-1.2)**.
