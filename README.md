@@ -4,9 +4,9 @@ The project is being made on L476RG. The HAL driver files and EWARM build files 
 
 ## Assumed motor orientation and layout.
 
-```
-Top View
+### Top View
 
+```
  M1 _         _ M2
    (_) front (_)
      \ .___. /
@@ -34,7 +34,39 @@ output data may be different.
 
 ```
 
+## Correction Stratergy
+
+ |error| M1 | M2 | M3 | M4 |
+ |:----|:--:|:--:|:--:|:--:|
+ | Y+  | +  | -  | -  | +  |
+ | Y-  | -  | +  | +  | -  |
+ | P+  | +  | +  |-/x |-/x |
+ | P-  |-/x |-/x | +  | +  |
+ | R+  | +  |-/x | +  |-/x |
+ | R-  |-/x | +  |-/x | +  |
+     
+   
+   
+ **x** = don't care / no correction
+ **+** = positive correction = m\*(error)
+ **-** = negative correction = m\*(error)
+ **m** = slope of error vs correction line = ERROR_AMPLIFICATION_FACTOR
+ 
+ 
+### The error amplification factor
+ The error obtained from sensor readings is mapped to the final pulse width values by using a straight line function, y=mx.
+ Here, 
+ 
+ - **y** = correction in pulsewidth, which is a signed number
+ - **m** = ERROR_AMPLIFICATION_FACTOR
+ - **x** = error 
+ 
+ 
+ - *example*: If roll error obtained is 0.0, then correction to be done in roll is **y = m\*0.0 = 0.0**. If roll error obtained is -1.2, then correction to be done in roll is **y = m\*(-1.2)**.
+
+
 ## Roadmap
+
 - [x] Implement PID Controller
 - [ ] Implement the mapping function
 - [ ] Cross-check sensor output data format and frequency
