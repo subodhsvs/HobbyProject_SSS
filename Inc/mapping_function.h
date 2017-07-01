@@ -13,7 +13,7 @@ typedef struct {
   uint16_t _base_thrust;
   const uint16_t _pulse_width_max;
   const uint16_t _pulse_width_min;
-} motor_vars;
+} motor_vars_t;
 
 /* dummy values here; change these */
 #define CLOCKWISE_THRESHOLD (-0.1)
@@ -24,6 +24,6 @@ typedef struct {
 #define CLOCKWISE(x,threshold) (x<threshold)?(1):(0)
 #define ANTI_CLOCKWISE(x,threshold) (x>threshold)?(1):(0)
 
-#define MOTOR_VARS_INIT(x) motor_vars x = {.M1=0,.M2=0,.M3=0,.M4=0,._base_thrust=0,._pulse_width_min=1100,._pulse_width_max=1900}
+#define MOTOR_VARS_INIT(x) motor_vars_t x = {.M1=0,.M2=0,.M3=0,.M4=0,._base_thrust=0,._pulse_width_min=1100,._pulse_width_max=1900}
 
 #endif
