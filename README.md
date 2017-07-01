@@ -38,7 +38,8 @@ Sensor Shield : X-NUCLEO-IKS01A1
    (_)       (_)
  M4             M3
  ```
- M1,M3 = Clockwise 
+ 
+ M1,M3 = Clockwise  
  M2,M4 = Counter-clockwise
 
 Anti-clockwise angle is assumed to be positive and clockwise negative.
