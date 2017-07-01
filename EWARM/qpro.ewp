@@ -38,7 +38,7 @@
         </option>
         <option>
           <name>Input description</name>
-          <state></state>
+          <state>Full formatting.</state>
         </option>
         <option>
           <name>Output variant</name>
@@ -47,7 +47,7 @@
         </option>
         <option>
           <name>Output description</name>
-          <state></state>
+          <state>Full formatting.</state>
         </option>
         <option>
           <name>GOutputBinary</name>
@@ -187,6 +187,8 @@
           <name>CCDefines</name>
           <state>USE_HAL_DRIVER</state>
           <state>STM32L476xx</state>
+          <state>USE_STM32L4XX_NUCLEO</state>
+          <state>USE_IKS01A1</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -320,6 +322,16 @@
           <state>$PROJ_DIR$/../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy</state>
           <state>$PROJ_DIR$/../Drivers/CMSIS/Device/ST/STM32L4xx/Include</state>
           <state>$PROJ_DIR$/../Drivers/CMSIS/Include</state>
+          <state>$PROJ_DIR$\..\Drivers\BSP\Components\Common</state>
+          <state>$PROJ_DIR$\..\Drivers\BSP\Components\hts221</state>
+          <state>$PROJ_DIR$\..\Drivers\BSP\Components\lis3mdl</state>
+          <state>$PROJ_DIR$\..\Drivers\BSP\Components\lps22hb</state>
+          <state>$PROJ_DIR$\..\Drivers\BSP\Components\lps25hb</state>
+          <state>$PROJ_DIR$\..\Drivers\BSP\Components\lsm6ds0</state>
+          <state>$PROJ_DIR$\..\Drivers\BSP\Components\lsm6ds3</state>
+          <state>$PROJ_DIR$\..\Drivers\BSP\STM32L4xx_Nucleo</state>
+          <state>$PROJ_DIR$\..\Drivers\BSP\X_NUCLEO_IKS01A1</state>
+          <state>$PROJ_DIR$\..\Middlewares\ST\STM32_MotionFX_Library\Inc</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -976,8 +988,23 @@
     </group>
     <group>
       <name>User</name>
+      <group>
+        <name>includes</name>
+        <file>
+          <name>$PROJ_DIR$\..\Inc\main.h</name>
+        </file>
+      </group>
+      <file>
+        <name>$PROJ_DIR$\..\Src\cube_hal_l4.c</name>
+      </file>
       <file>
         <name>$PROJ_DIR$\..\Src\main.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\mapping_function.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\MotionFX_Manager.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\pid_controller.c</name>
@@ -993,6 +1020,78 @@
   <group>
     <name>Drivers</name>
     <group>
+      <name>BSP</name>
+      <group>
+        <name>Components</name>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\Components\hts221\HTS221_Driver.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\Components\hts221\HTS221_Driver_HL.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\Components\lis3mdl\LIS3MDL_MAG_driver.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\Components\lis3mdl\LIS3MDL_MAG_driver_HL.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\Components\lps22hb\LPS22HB_Driver.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\Components\lps22hb\LPS22HB_Driver_HL.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\Components\lps25hb\LPS25HB_Driver.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\Components\lps25hb\LPS25HB_Driver_HL.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\Components\lsm6ds0\LSM6DS0_ACC_GYRO_driver.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\Components\lsm6ds0\LSM6DS0_ACC_GYRO_driver_HL.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\Components\lsm6ds3\LSM6DS3_ACC_GYRO_driver.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\Components\lsm6ds3\LSM6DS3_ACC_GYRO_driver_HL.c</name>
+        </file>
+      </group>
+      <group>
+        <name>STM32L4XX_Nucleo</name>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\STM32L4xx_Nucleo\stm32l4xx_nucleo.c</name>
+        </file>
+      </group>
+      <group>
+        <name>X_NUCKLEO_IKS01A1</name>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\X_NUCLEO_IKS01A1\x_nucleo_iks01a1.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\X_NUCLEO_IKS01A1\x_nucleo_iks01a1_accelero.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\X_NUCLEO_IKS01A1\x_nucleo_iks01a1_gyro.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\X_NUCLEO_IKS01A1\x_nucleo_iks01a1_humidity.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\X_NUCLEO_IKS01A1\x_nucleo_iks01a1_magneto.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\X_NUCLEO_IKS01A1\x_nucleo_iks01a1_pressure.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Drivers\BSP\X_NUCLEO_IKS01A1\x_nucleo_iks01a1_temperature.c</name>
+        </file>
+      </group>
+    </group>
+    <group>
       <name>CMSIS</name>
       <file>
         <name>$PROJ_DIR$\..\Src\system_stm32l4xx.c</name>
@@ -1005,6 +1104,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_cortex.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_crc.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_crc_ex.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_dma.c</name>
@@ -1046,6 +1151,12 @@
         <name>$PROJ_DIR$\..\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_tim_ex.c</name>
       </file>
     </group>
+  </group>
+  <group>
+    <name>Middlewares</name>
+    <file>
+      <name>$PROJ_DIR$\..\Middlewares\ST\STM32_MotionFX_Library\Lib\MotionFX200_CM4F_IAR_ot.a</name>
+    </file>
   </group>
 </project>
 

@@ -7,13 +7,13 @@
 
 #include "pid_controller.h"
 
-double pid(PID_vars *vars, double current_err) {
+float pid(PID_vars *vars, float current_err) {
   
   /* current_error = setpoint - current_process_variable */
   
   vars->_integral_sum += current_err*(vars->_dt);
   
-  double output = (vars->Kp)*current_err                     \
+  float output = (vars->Kp)*current_err                     \
                 + (vars->Ki)*(vars->_integral_sum)           \
                 + (vars->Kd)*((current_err-(vars->_prev_err))\
                               /(vars->_dt)); 
