@@ -101,11 +101,11 @@ void TIM2_IRQHandler(void)
 void TIM3_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM3_IRQn 0 */
-
+  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_3);
   /* USER CODE END TIM3_IRQn 0 */
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */
-
+  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_3);
   /* USER CODE END TIM3_IRQn 1 */
 }
 
@@ -117,6 +117,7 @@ void TIM3_IRQHandler(void)
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
   /* TODO : check logic validity */
   if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) {
+    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_2);
     /* PID controller */
     float Y_err = Y_setpoint - pid(&Y_var, (Y_setpoint - Y_current));
     float P_err = P_setpoint - pid(&P_var, (P_setpoint - P_current));
@@ -128,6 +129,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
     motor_timer->CCR2 = motor_vars.M2;
     motor_timer->CCR3 = motor_vars.M3;
     motor_timer->CCR4 = motor_vars.M4;
+    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_2);
   }
 }
 

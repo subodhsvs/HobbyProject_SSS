@@ -2,6 +2,11 @@
 #include "stdint.h"
 #include "float.h"
 
+  /*
+   * TODO
+   * - verify logical consistency
+   * - verify system response at boundary conditions
+   */
 
 void map(motor_vars_t *mvars, float *yaw_err, float *pitch_err, float *roll_err) {
   
@@ -13,13 +18,13 @@ void map(motor_vars_t *mvars, float *yaw_err, float *pitch_err, float *roll_err)
  *         M1 _         _ M2
  *           (_) front (_)
  * y-axis      \ .___. /
- * ^            \|   |/         M1,M4 = clockwise 
- * |   x-axis    |   |          M2,M3 = anti-clockwise
+ * ^            \|   |/         M1,M3 = clockwise 
+ * |   x-axis    |   |          M2,M4 = counter-clockwise
  * |---->        |   |
  * z-axis       /|___|\
  * (upward)   _/       \_
  *           (_)       (_)
- *         M3             M4
+ *         M4             M3
  * 
  * All angles are viewed from the origin as the frame of reference.
  * Anti-clockwise angle is assumed to be positive and clockwise negative.
@@ -28,13 +33,14 @@ void map(motor_vars_t *mvars, float *yaw_err, float *pitch_err, float *roll_err)
  * 
  * 
  * |error| M1 | M2 | M3 | M4 |
- * |:----|:--:|:--:|:--:|:--:|
- * | Y+  | +  | -  | -  | +  |
- * | Y-  | -  | +  | +  | -  |
+ * |:---:|:--:|:--:|:--:|:--:|
+ * | Y+  | +  | -  | +  | -  |
+ * | Y-  | -  | +  | -  | +  |
  * | P+  | +  | +  |-/x |-/x |
  * | P-  |-/x |-/x | +  | +  |
- * | R+  | +  |-/x | +  |-/x |
- * | R-  |-/x | +  |-/x | +  |
+ * | R+  | +  |-/x |-/x | +  |
+ * | R-  |-/x | +  | +  |-/x |
+ *  
  *     
  * x = don't care / no correction
  * + = positive correction = m*(error)
@@ -115,9 +121,4 @@ void map(motor_vars_t *mvars, float *yaw_err, float *pitch_err, float *roll_err)
     mvars->M4 = mvars->_pulse_width_min;
   }
   
-  /*
-   * TODO
-   * - verify logical consistency
-   * - verify system response at boundary conditions
-   */
 }
