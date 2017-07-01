@@ -5,7 +5,7 @@
   /*
    * TODO
    * - verify logical consistency
-   * - verify system response at boundary conditions
+   * - verify boundary conditions for sensor data
    */
 
 void map(motor_vars_t *mvars, float *yaw_err, float *pitch_err, float *roll_err) {
