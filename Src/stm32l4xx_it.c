@@ -36,24 +36,13 @@
 #include "stm32l4xx_it.h"
 
 /* USER CODE BEGIN 0 */
-#include "pid_controller.h"
-#include "mapping_function.h"
-extern float Y_setpoint;
-extern float P_setpoint;
-extern float R_setpoint;
-extern float Y_current;
-extern float P_current;
-extern float R_current;
-extern PID_vars Y_var;
-extern PID_vars P_var;
-extern PID_vars R_var;
-extern motor_vars_t motor_vars;
-TIM_TypeDef *motor_timer = TIM1;
+
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
+extern DMA_HandleTypeDef hdma_usart2_rx;
+extern DMA_HandleTypeDef hdma_usart2_tx;
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Interruption and Exception Handlers         */ 
@@ -82,17 +71,31 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-* @brief This function handles TIM2 global interrupt.
+* @brief This function handles DMA1 channel6 global interrupt.
 */
-void TIM2_IRQHandler(void)
+void DMA1_Channel6_IRQHandler(void)
 {
-  /* USER CODE BEGIN TIM2_IRQn 0 */
+  /* USER CODE BEGIN DMA1_Channel6_IRQn 0 */
 
-  /* USER CODE END TIM2_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim2);
-  /* USER CODE BEGIN TIM2_IRQn 1 */
+  /* USER CODE END DMA1_Channel6_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_usart2_rx);
+  /* USER CODE BEGIN DMA1_Channel6_IRQn 1 */
 
-  /* USER CODE END TIM2_IRQn 1 */
+  /* USER CODE END DMA1_Channel6_IRQn 1 */
+}
+
+/**
+* @brief This function handles DMA1 channel7 global interrupt.
+*/
+void DMA1_Channel7_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Channel7_IRQn 0 */
+
+  /* USER CODE END DMA1_Channel7_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_usart2_tx);
+  /* USER CODE BEGIN DMA1_Channel7_IRQn 1 */
+
+  /* USER CODE END DMA1_Channel7_IRQn 1 */
 }
 
 /**
@@ -101,90 +104,15 @@ void TIM2_IRQHandler(void)
 void TIM3_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM3_IRQn 0 */
-  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_3);
+
   /* USER CODE END TIM3_IRQn 0 */
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */
-  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_3);
+
   /* USER CODE END TIM3_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
-
-/**
- * @brief This function handles the PID controller
- */
-void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim) {
-  /* TODO : check logic validity */
-  if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) {
-    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_2);
-    /* PID controller */
-    float Y_err = Y_setpoint - pid(&Y_var, (Y_setpoint - Y_current));
-    float P_err = P_setpoint - pid(&P_var, (P_setpoint - P_current));
-    float R_err = R_setpoint - pid(&R_var, (R_setpoint - R_current));
-    /* Passing to mapping function */
-    map(&motor_vars, &Y_err, &P_err, &R_err);
-    /* Set TIM1 CCR values to values in motor var */
-    motor_timer->CCR1 = motor_vars.M1;
-    motor_timer->CCR2 = motor_vars.M2;
-    motor_timer->CCR3 = motor_vars.M3;
-    motor_timer->CCR4 = motor_vars.M4;
-    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_2);
-  }
-}
-
-/**
-  * @brief  This function handles NMI exception
-  * @param  None
-  * @retval None
-  */
-void NMI_Handler(void)
-{
-}
-
-/**
-  * @brief  This function handles Hard Fault exception
-  * @param  None
-  * @retval None
-  */
-void HardFault_Handler(void)
-{
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
-}
-
-/**
-  * @brief  This function handles Debug Monitor exception
-  * @param  None
-  * @retval None
-  */
-void DebugMon_Handler(void)
-{
-}
-
-/**
-  * @brief This function handles TIM_CP global interrupt
-  * @param  None
-  * @retval None
-  */
-//void TIM_FX_IRQHandler(void)
-//{
-//  HAL_TIM_IRQHandler(&FX_TimHandle);
-//}
-
-
-/**
-  * @brief  This function handles External lines 10-15 interrupt requests
-  * @param  None
-  * @retval None
-  */
-//void EXTI15_10_IRQHandler(void)
-//{
-//  HAL_GPIO_EXTI_IRQHandler(KEY_BUTTON_PIN);
-//}
-
 
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

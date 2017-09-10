@@ -13,10 +13,7 @@ float pid(PID_vars *vars, float current_err) {
   
   vars->_integral_sum += current_err*(vars->_dt);
   
-  float output = (vars->Kp)*current_err                     \
-                + (vars->Ki)*(vars->_integral_sum)           \
-                + (vars->Kd)*((current_err-(vars->_prev_err))\
-                              /(vars->_dt)); 
+  float output  = (vars->Kp)*current_err + (vars->Ki)*(vars->_integral_sum)  + (vars->Kd)*((current_err-(vars->_prev_err)) /(vars->_dt)); 
   
   vars->_prev_err = current_err;
   

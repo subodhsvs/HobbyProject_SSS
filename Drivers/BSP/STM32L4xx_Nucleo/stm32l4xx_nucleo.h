@@ -57,7 +57,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32l4xx_hal.h"
-#include "stdint.h"
+   
    
 /** @defgroup STM32L4XX_NUCLEO_Exported_Types Exported Types
   * @{
